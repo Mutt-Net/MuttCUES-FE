@@ -1,0 +1,19 @@
+body {
+  font-family: system-ui, sans-serif;
+  padding: 2rem;
+  background: #fafafa;
+}
+
+section {
+  margin-bottom: 1.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+input {
+  padding: 0.4rem;
+}
