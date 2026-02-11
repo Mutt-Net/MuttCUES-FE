@@ -1,59 +1,62 @@
-// const API_BASE_URL = "/api"; // comment this out
-const API_BASE_URL = "http://localhost:8080/api"; // direct to backend
+const API_BASE = "/api"; // Vite proxy will forward to http://localhost:8080
 
-export function uploadFileWithProgress(
+/**
+ * Upload a file with progress callback.
+ * @param file The file to upload
+ * @param onProgress Callback receiving percent (0-100)
+ * @returns Promise resolving to the uploaded fileId
+ */
+export async function uploadFileWithProgress(
   file: File,
-  onProgress: (percent: number) => void
+  onProgress?: (percent: number) => void
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    const formData = new FormData();
 
-    formData.append("file", file);
-
-    xhr.open("POST", `${API_BASE_URL}/upload`);
+    xhr.open("POST", `${API_BASE}/upload`);
 
     xhr.upload.onprogress = (event) => {
-      if (event.lengthComputable) {
+      if (event.lengthComputable && onProgress) {
         const percent = Math.round((event.loaded / event.total) * 100);
         onProgress(percent);
       }
     };
 
     xhr.onload = () => {
-      console.log("Upload response:", xhr.responseText); // <-- debug
-      if (xhr.status >= 200 && xhr.status < 300) {
+      if (xhr.status === 200) {
         try {
-          const response = JSON.parse(xhr.responseText);
-          if (response.fileId) resolve(response.fileId);
-          else reject(new Error(response.error || "Unknown error"));
+          const resp = JSON.parse(xhr.responseText);
+          resolve(resp.fileId);
         } catch (err) {
-          reject(new Error("Invalid JSON response"));
+          reject(err);
         }
       } else {
-        reject(new Error("Upload failed with status " + xhr.status));
+        reject(new Error(`Upload failed with status ${xhr.status}`));
       }
     };
 
-    xhr.onerror = () => {
-      console.error("Upload network error");
-      reject(new Error("Network error"));
-    };
+    xhr.onerror = () => reject(new Error("Upload failed due to network error"));
 
+    const formData = new FormData();
+    formData.append("file", file);
     xhr.send(formData);
   });
 }
 
+/**
+ * Download a file by ID.
+ * @param fileId The ID returned from the upload endpoint
+ * @returns Promise resolving to a Blob
+ */
 export async function downloadFile(fileId: string): Promise<Blob> {
-  const url = `${API_BASE_URL}/files/${fileId}`;
-  console.log("Downloading from:", url); // <-- debug
-  const response = await fetch(url);
+  const response = await fetch(
+    `${API_BASE}/upload/${encodeURIComponent(fileId)}`
+  );
 
   if (!response.ok) {
-    const text = await response.text();
-    console.error("Download failed:", text);
-    throw new Error("Download failed: " + response.statusText);
+    throw new Error(`Download failed with status ${response.status}`);
   }
 
-  return await response.blob();
+  return response.blob();
 }
+
