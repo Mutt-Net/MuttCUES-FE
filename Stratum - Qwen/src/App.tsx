@@ -1,4 +1,5 @@
 import './App.css'
+import DdsConverter from './components/DdsConverter'
 
 function App() {
   return (
@@ -6,7 +7,7 @@ function App() {
       <div>
         <h1>MuttCUES-FE</h1>
       </div>
-      <p>Application placeholder - components to be implemented</p>
+      <DdsConverter />
     </>
   )
 }

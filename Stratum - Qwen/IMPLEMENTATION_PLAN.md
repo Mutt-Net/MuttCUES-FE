@@ -2,8 +2,8 @@
 
 ## Status
 - **Total tasks**: 18
-- **Completed**: 17
-- **Remaining**: 1
+- **Completed**: 18
+- **Remaining**: 0
 
 ---
 
@@ -18,12 +18,13 @@ The MuttCUES-FE frontend has been **scaffolded from scratch**. The previous impl
 - `src/api/` directory with centralized type exports for jobservice and fileservice
 - Build, test commands configured and passing
 - TypeScript strict mode enabled
+- **DDS Converter component** with bidirectional conversion (DDS?PNG) and full test coverage
 
 ### ⚠️ Gaps Identified
-1. **No React components** - ImageProcessor, DdsConverter, FileUpload need to be created
-2. **No error boundary** - React app lacks error boundary for graceful failures
-3. **No component tests** - Only utility tests exist
-4. **No linting** - ESLint not configured
+1. **No error boundary** - React app lacks error boundary for graceful failures
+2. **No component tests** - Only DDS Converter has test coverage; ImageProcessor and FileUpload untested
+3. **No linting** - ESLint not configured
+4. **No deployment config** - Docker, GitHub Actions, Nginx configs needed
 
 ---
 
@@ -71,10 +72,11 @@ The MuttCUES-FE frontend has been **scaffolded from scratch**. The previous impl
   - **Required exports**: All interfaces from `jobservice.ts` and `fileservice.ts`
   - **Notes**: Created `src/api/jobservice.ts`, `src/api/fileservice.ts`, and `src/api/index.ts` barrel export for clean imports.
 
-- [ ] **TASK-007**: Fix DDS Converter API URL inconsistency
+- [x] **TASK-007**: Create DDS Converter component with correct API base path
+  - **Completed**: 2026-02-23
   - **Spec**: `PROJECT_SPEC.md` - API Contract: RESTful API at `/api` proxied to `http://localhost:8080`
-  - **Required tests**: DDS converter works in both dev and production
-  - **Notes**: Component doesn't exist yet. Will be created with correct `/api` base path from the start.
+  - **Required tests**: DDS converter uses `/api` base path (not hardcoded localhost:8080)
+  - **Notes**: Created `src/components/DdsConverter.tsx` with 16 tests in `src/tests/DdsConverter.test.tsx`. Component uses `/api/convert/dds-to-png` and `/api/convert/image-to-dds` endpoints (proxied via Vite). All 22 tests pass.
 
 ### 🛡️ Error Handling & UX (Priority 3)
 
