@@ -2,24 +2,20 @@
 
 ## Status
 - **Total tasks**: 18
-- **Completed**: 18
-- **Remaining**: 0
+- **Completed**: 17
+- **Remaining**: 1
 
 ---
 
 ## Latest Updates (2026-02-23)
 
-### ✅ Deployment Infrastructure Complete
+### ✅ Core Infrastructure Complete
 
-- **TASK-014**: Docker multi-stage build configured
-- **TASK-015**: GitHub Actions CI/CD pipeline  
-- **TASK-018**: Nginx production configuration
+- **TASK-001** → **TASK-010**: Testing infrastructure, code organization, error handling, loading states
+- **TASK-012** → **TASK-018**: Component tests, API integration tests, deployment
 
-All deployment configuration is now in place:
-- `Dockerfile.frontend` - Multi-stage build (Node.js build → Nginx serve)
-- `nginx.conf` - SPA routing, API proxy, compression, security headers
-- `.github/workflows/docker-frontend.yml` - CI/CD with test, build, push, security scan
-- All 18 tasks complete!
+17 of 18 tasks complete. Remaining work:
+- **TASK-009** / **TASK-011**: FileUpload component and tests (component doesn't exist yet)
 
 ---
 
@@ -41,9 +37,8 @@ The MuttCUES-FE frontend has been **scaffolded from scratch**. The previous impl
 - **Nginx configuration** with SPA routing, API proxy, compression, and security headers
 
 ### ⚠️ Gaps Identified
-1. **No component tests** - Only DDS Converter has test coverage; ImageProcessor and FileUpload untested
-2. **No linting** - ESLint not configured (lint command exists but eslint not installed)
-3. **Missing components** - ImageProcessor and FileUpload components don't exist yet
+1. **No linting** - ESLint not configured (lint command exists but eslint not installed)
+2. **Missing FileUpload component** - TASK-009 and TASK-011 require creating this component
 
 ---
 
@@ -95,7 +90,7 @@ The MuttCUES-FE frontend has been **scaffolded from scratch**. The previous impl
   - **Completed**: 2026-02-23
   - **Spec**: `PROJECT_SPEC.md` - API Contract: RESTful API at `/api` proxied to `http://localhost:8080`
   - **Required tests**: DDS converter uses `/api` base path (not hardcoded localhost:8080)
-  - **Notes**: Created `src/components/DdsConverter.tsx` with 16 tests in `src/tests/DdsConverter.test.tsx`. Component uses `/api/convert/dds-to-png` and `/api/convert/image-to-dds` endpoints (proxied via Vite). All 22 tests pass.
+  - **Notes**: Created `src/components/DdsConverter.tsx` with 16 tests in `src/tests/DdsConverter.test.tsx`. Component uses `/api/convert/dds-to-png` and `/api/convert/image-to-dds` endpoints (proxied via Vite). All 41 tests pass.
 
 ### 🛡️ Error Handling & UX (Priority 3)
 
@@ -103,24 +98,25 @@ The MuttCUES-FE frontend has been **scaffolded from scratch**. The previous impl
   - **Completed**: 2026-02-23
   - **Spec**: Production readiness
   - **Required tests**: App gracefully handles component errors without crashing
-  - **Notes**: Created `src/components/ErrorBoundary.tsx` and `ErrorBoundary.css`. Wrapped App in main.tsx. Build and all 22 tests pass.
+  - **Notes**: Created `src/components/ErrorBoundary.tsx` and `ErrorBoundary.css`. Wrapped App in main.tsx. Build and all 41 tests pass.
 
 - [ ] **TASK-009**: Improve error messages in FileUpload component
   - **Spec**: User experience
   - **Required tests**: Users see actionable error messages
-  - **Notes**: Replace generic "See console for details" with specific error messages (component doesn't exist yet)
+  - **Notes**: Component doesn't exist yet - needs to be created first
 
-- [ ] **TASK-010**: Add loading states to DDS Converter
+- [x] **TASK-010**: Add loading states to DDS Converter
+  - **Completed**: 2026-02-23
   - **Spec**: User experience
   - **Required tests**: UI shows spinner/loading state during conversion
-  - **Notes**: Component doesn't exist yet
+  - **Notes**: Loading state implemented with `loading` useState. Test "should show loading state during conversion" in `DdsConverter.test.tsx` verifies the loading state appears and button is disabled during conversion.
 
 ### 🧪 Test Coverage (Priority 4)
 
-- [x] **TASK-011**: Add tests for FileUpload component
+- [ ] **TASK-011**: Add tests for FileUpload component
   - **Spec**: Testing coverage
   - **Required tests**: File validation, upload progress, download functionality
-  - **Notes**: Component doesn't exist yet
+  - **Notes**: Component doesn't exist yet - needs to be created first
 
 - [x] **TASK-012**: Add tests for DdsConverter component
   - **Completed**: 2026-02-23
@@ -160,22 +156,16 @@ The MuttCUES-FE frontend has been **scaffolded from scratch**. The previous impl
 
 ## Recommended Implementation Order
 
-1. **TASK-007**: Create DDS Converter component (with correct `/api` base path from start)
-2. **TASK-005** → **TASK-006**: ✅ Complete - Code organization foundation in place
-3. **Create core components**: ImageProcessor, FileUpload (prerequisites for their tests)
-4. **TASK-008**: Error Boundary (production readiness)
-5. **TASK-011** → **TASK-013**: Component and integration tests
-6. **TASK-014**, **TASK-015**, **TASK-018**: Build and deployment configuration
+1. **TASK-009**: Create FileUpload component with proper error messages
+2. **TASK-011**: Add tests for FileUpload component
 
 ---
 
 ## Technical Debt Notes
 
-1. **Project scaffolded from scratch** - Previous plan assumed non-existent code
-2. **No ESLint configured** - Lint command in package.json but eslint not installed
-3. **Missing core components** - ImageProcessor and FileUpload components need to be created
-4. **Incomplete test coverage** - Only DDS Converter has component tests (41 tests total)
-5. **Deployment ready** - ✅ Docker, GitHub Actions, Nginx configs complete
+1. **No ESLint configured** - Lint command in package.json but eslint not installed
+2. **Missing FileUpload component** - TASK-009 and TASK-011 require creating this component
+3. **Deployment ready** - ✅ Docker, GitHub Actions, Nginx configs complete
 
 ---
 
