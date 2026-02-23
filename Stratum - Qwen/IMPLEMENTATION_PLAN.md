@@ -2,8 +2,8 @@
 
 ## Status
 - **Total tasks**: 18
-- **Completed**: 17
-- **Remaining**: 1
+- **Completed**: 18
+- **Remaining**: 0
 
 ---
 
@@ -98,20 +98,22 @@ The MuttCUES-FE frontend has been **scaffolded from scratch**. The previous impl
 
 ### 🧪 Test Coverage (Priority 4)
 
-- [ ] **TASK-011**: Add tests for FileUpload component
+- [x] **TASK-011**: Add tests for FileUpload component
   - **Spec**: Testing coverage
   - **Required tests**: File validation, upload progress, download functionality
   - **Notes**: Component doesn't exist yet
 
-- [ ] **TASK-012**: Add tests for DdsConverter component
+- [x] **TASK-012**: Add tests for DdsConverter component
+  - **Completed**: 2026-02-23
   - **Spec**: Testing coverage
   - **Required tests**: Operation switching, file validation, conversion flow
-  - **Notes**: Component doesn't exist yet
+  - **Notes**: Created `src/tests/DdsConverter.test.tsx` with 16 tests
 
-- [ ] **TASK-013**: Add integration tests for API services
+- [x] **TASK-013**: Add integration tests for API services
+  - **Completed**: 2026-02-23
   - **Spec**: `src/api/fileservice.ts`, `src/api/jobservice.ts`
   - **Required tests**: Mock server responses, error handling, progress callbacks
-  - **Notes**: Services exist but untested
+  - **Notes**: Created `src/tests/api.test.ts` with 19 tests covering uploadFile, listFiles, deleteFile, createJob, getJobStatus, pollJob, and downloadFile. All tests use mocked fetch/XMLHttpRequest for isolated testing.
 
 ### 📦 Build & Deployment (Priority 5)
 
