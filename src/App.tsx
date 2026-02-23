@@ -1,7 +1,7 @@
 import React from "react";
 import { FileUpload } from "./components/FileUpload";
 import { ImageProcessor } from "./components/ImageProcessor";
-import DdsConverter from "../DdsConverter";
+import DdsConverter from "./components/DdsConverter";
 
 export default function App() {
   return (
