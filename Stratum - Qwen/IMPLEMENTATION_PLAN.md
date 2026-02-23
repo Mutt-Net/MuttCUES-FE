@@ -2,8 +2,8 @@
 
 ## Status
 - **Total tasks**: 18
-- **Completed**: 18
-- **Remaining**: 0
+- **Completed**: 17
+- **Remaining**: 1
 
 ---
 
@@ -80,10 +80,11 @@ The MuttCUES-FE frontend has been **scaffolded from scratch**. The previous impl
 
 ### 🛡️ Error Handling & UX (Priority 3)
 
-- [ ] **TASK-008**: Add React Error Boundary
+- [x] **TASK-008**: Add React Error Boundary
+  - **Completed**: 2026-02-23
   - **Spec**: Production readiness
   - **Required tests**: App gracefully handles component errors without crashing
-  - **Notes**: Create `src/components/ErrorBoundary.tsx` wrapping the app
+  - **Notes**: Created `src/components/ErrorBoundary.tsx` and `ErrorBoundary.css`. Wrapped App in main.tsx. Build and all 22 tests pass.
 
 - [ ] **TASK-009**: Improve error messages in FileUpload component
   - **Spec**: User experience
