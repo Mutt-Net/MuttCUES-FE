@@ -2,8 +2,8 @@
 
 ## Status
 - **Total tasks**: 18
-- **Completed**: 15
-- **Remaining**: 3
+- **Completed**: 16
+- **Remaining**: 2
 
 ---
 
@@ -71,7 +71,8 @@ The MuttCUES-FE frontend is **substantially complete** with core functionality i
   - **Required exports**: All interfaces from `jobservice.ts` and `fileservice.ts`
   - **Notes**: Create `src/api/index.ts` barrel export for clean imports
 
-- [ ] **TASK-007**: Fix DDS Converter API URL inconsistency
+- [x] **TASK-007**: Fix DDS Converter API URL inconsistency
+  - **Completed**: 2026-02-23
   - **Spec**: `PROJECT_SPEC.md` - API Contract: RESTful API at `/api` proxied to `http://localhost:8080`
   - **Required tests**: DDS converter works in both dev and production
   - **Notes**: Replace hardcoded `http://localhost:8080` with `/api` base path (see `DdsConverter.tsx` lines 62, 82)

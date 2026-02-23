@@ -58,7 +58,7 @@ const DdsConverter: React.FC = () => {
       : '/api/convert/image-to-dds';
 
     try {
-      const response = await fetch(`http://localhost:8080${endpoint}`, {
+      const response = await fetch(`${endpoint}`, {
         method: 'POST',
         body: formData,
       });
@@ -79,7 +79,7 @@ const DdsConverter: React.FC = () => {
 
   const handleDownload = () => {
     if (result && result.downloadUrl) {
-      window.open(`http://localhost:8080${result.downloadUrl}`, '_blank');
+      window.open(`${result.downloadUrl}`, '_blank');
     }
   };
 
