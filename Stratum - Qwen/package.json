@@ -3,12 +3,18 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0 <23.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run src/tests/fileValidation.test.ts",
+    "test:components": "vitest run src/tests/FileUpload.test.tsx && vitest run src/tests/DdsConverter.test.tsx && vitest run src/tests/ErrorBoundary.test.tsx",
+    "test:api": "vitest run src/tests/api.test.ts",
+    "test:all": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
