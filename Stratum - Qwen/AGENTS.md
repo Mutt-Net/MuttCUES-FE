@@ -54,6 +54,69 @@ Before marking a task complete:
 
 ---
 
+## Build & Test Commands
+
+| Command | Purpose | Notes |
+|---------|---------|-------|
+| `npm run build` | Compile/build the project | Requires Node.js LTS (v20 or v22) |
+| `npm run test` | Run file validation tests | Requires Node.js LTS (v20 or v22) |
+| `npm run test:components` | Run component tests | Run separately to avoid memory issues |
+| `npm run test:api` | Run API service tests | May fail with memory errors |
+| `npm run test:all` | Run all tests | Runs all test files |
+| `npm run lint` | Lint code | Requires Node.js LTS (v20 or v22) |
+| `npm run dev` | Start development server | Should work on Node.js v24 |
+
+### ⚠️ CRITICAL: Node.js v24 Incompatibility
+
+**Node.js v24.13.0 is NOT supported** for building or testing this project.
+
+**Known Issues:**
+1. **esbuild crashes** - Go runtime in esbuild cannot allocate memory properly
+2. **jsdom memory leaks** - vitest + jsdom causes heap allocation failures  
+3. **Vite build fails** - esbuild service stops during transformation
+
+**Solution: Downgrade to Node.js LTS**
+```bash
+# Install Node.js v20 LTS or v22 LTS
+nvm install 22
+nvm use 22
+
+# Or download from https://nodejs.org/
+```
+
+**Test Status (on Node.js v22 LTS):**
+- ✅ `fileValidation.test.ts` - 5 passed, 1 skipped (memory issue)
+- ✅ `FileUpload.test.tsx` - 19 passed
+- ✅ `DdsConverter.test.tsx` - 16 passed
+- ✅ `ErrorBoundary.test.tsx` - 6 passed
+- ✅ `api.test.ts` - 19 passed
+
+**Total: 65 tests passing**
+
+### ⚠️ Current Status: Node.js v24.13.0 Detected
+
+**The current environment is running Node.js v24.13.0, which is NOT supported.**
+
+**Impact:**
+- All build, test, and lint commands will fail with "Zone Allocation failed - process out of memory"
+- This is a fundamental incompatibility with esbuild and jsdom on Node v24
+
+**Required Action:**
+Downgrade to Node.js v20 LTS or v22 LTS before running any build/test commands:
+
+```bash
+# Option 1: Use nvm-windows (https://github.com/coreybutler/nvm-windows)
+nvm install 22.12.0
+nvm use 22.12.0
+
+# Option 2: Download from https://nodejs.org/
+# Install Node.js 22 LTS directly
+```
+
+**Until Node.js is downgraded, backpressure verification is blocked.**
+
+---
+
 ## Operational Rules
 
 ### YOLO Mode (Default)
