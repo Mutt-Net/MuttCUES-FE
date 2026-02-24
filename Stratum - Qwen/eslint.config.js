@@ -23,7 +23,7 @@ export default [
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
-        projectService: true,
+        project: false, // Disable type-aware linting for performance
         tsconfigRootDir: import.meta.dirname,
       },
     },

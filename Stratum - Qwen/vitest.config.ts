@@ -8,6 +8,11 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: path.resolve(__dirname, 'src/tests/setup.ts'),
-    css: true,
+    css: false, // Disable CSS processing for memory efficiency
+    clearMocks: true, // Clear mocks between tests
+    restoreMocks: true, // Restore mocks between tests
+    unstubGlobals: true, // Unstub globals between tests
+    fileParallelism: false, // Don't run test files in parallel
+    isolate: true, // Isolate tests between files
   },
 })
