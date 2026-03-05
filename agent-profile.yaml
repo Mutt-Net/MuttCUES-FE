@@ -1,0 +1,26 @@
+project: MuttCUES-FE
+stack: React 18 / TypeScript / Vite 7 / Vitest
+
+compute:
+  architecture: claude-sonnet-4-6
+  implementation: qwen2.5-coder:32b
+  ollama_host: http://192.168.0.100:11434
+
+task_classification:
+  holly_class:
+    - architecture decisions
+    - new component design
+    - complex state management
+    - UX/accessibility decisions
+    - build tooling changes
+  skutter_class:
+    - CRUD form implementation
+    - test writing
+    - bug fixes with clear root cause
+    - CSS/styling adjustments
+    - adding validation logic
+
+validation:
+  test: npm run test
+  build: npm run build
+  node_constraint: ">=20 <24 (see .nvmrc — use Node 22)"

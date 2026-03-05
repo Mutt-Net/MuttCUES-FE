@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './DdsConverter.css';
+import { formatFileSize } from '../lib';
 
 interface ConversionResult {
   success: boolean;
@@ -58,7 +59,7 @@ const DdsConverter: React.FC = () => {
       : '/api/convert/image-to-dds';
 
     try {
-      const response = await fetch(`http://localhost:8080${endpoint}`, {
+      const response = await fetch(`${endpoint}`, {
         method: 'POST',
         body: formData,
       });
@@ -79,7 +80,7 @@ const DdsConverter: React.FC = () => {
 
   const handleDownload = () => {
     if (result && result.downloadUrl) {
-      window.open(`http://localhost:8080${result.downloadUrl}`, '_blank');
+      window.open(`${result.downloadUrl}`, '_blank');
     }
   };
 
@@ -145,9 +146,7 @@ const DdsConverter: React.FC = () => {
               </div>
               <div className="info-row">
                 <span className="label">Size:</span>
-                <span className="value">
-                  {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-                </span>
+                <span className="value">{formatFileSize(selectedFile.size)}</span>
               </div>
               <div className="info-row">
                 <span className="label">Type:</span>

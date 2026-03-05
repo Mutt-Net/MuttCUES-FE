@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { ImageProcessor } from '../src/components/ImageProcessor';
+import { ImageProcessor } from '../components/ImageProcessor';
 
 global.fetch = vi.fn();
 
@@ -26,7 +26,7 @@ describe('ImageProcessor', () => {
 
   it('submit button is disabled when no file selected', () => {
     render(<ImageProcessor />);
-    const button = screen.getByText('Upscale Image');
+    const button = screen.getByText<HTMLButtonElement>('Upscale Image');
     expect(button.disabled).toBe(true);
   });
 });
@@ -48,7 +48,7 @@ describe('Job Service', () => {
       })
     });
 
-    const { submitProcessingJob } = await import('../src/api/jobservice');
+    const { submitProcessingJob } = await import('../api/jobservice');
     
     // This would require actual implementation
     expect(true).toBe(true);
@@ -64,7 +64,7 @@ describe('Job Service', () => {
       })
     });
 
-    const { getJobStatus } = await import('../src/api/jobservice');
+    const { getJobStatus } = await import('../api/jobservice');
     const result = await getJobStatus('test-job-id');
     
     expect(result.status).toBe('PROCESSING');
@@ -77,7 +77,7 @@ describe('Job Service', () => {
       status: 404
     });
 
-    const { getJobStatus } = await import('../src/api/jobservice');
+    const { getJobStatus } = await import('../api/jobservice');
     
     await expect(getJobStatus('invalid-id')).rejects.toThrow();
   });

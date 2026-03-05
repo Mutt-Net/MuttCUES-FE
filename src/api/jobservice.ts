@@ -103,11 +103,3 @@ export async function getJobStatistics(): Promise<JobStatistics> {
   }
   return response.json();
 }
-
-export async function downloadFile(fileId: string): Promise<Blob> {
-  const response = await fetch(`${API_BASE}/upload/${encodeURIComponent(fileId)}`);
-  if (!response.ok) {
-    throw new Error(`Download failed with status ${response.status}`);
-  }
-  return response.blob();
-}

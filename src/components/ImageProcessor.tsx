@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, DragEvent } from "react";
-import { submitProcessingJob, getJobStatus, downloadFile, JobStatus } from "../api/jobservice";
+import { submitProcessingJob, getJobStatus, downloadFile, JobStatus } from "../api";
+import { validateFile, formatDuration } from "../lib";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 MB
 const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
@@ -66,18 +67,8 @@ export function ImageProcessor() {
     };
   }, [jobId, jobStatus?.status]);
 
-  const validateFile = (file: File): string | null => {
-    if (!ALLOWED_TYPES.includes(file.type)) {
-      return `Unsupported file type: ${file.type}. Allowed: PNG, JPEG, WebP`;
-    }
-    if (file.size > MAX_FILE_SIZE) {
-      return `File is too large: ${(file.size / 1024 / 1024).toFixed(2)} MB (max 50 MB)`;
-    }
-    return null;
-  };
-
   const handleFileSelect = (selectedFile: File) => {
-    const error = validateFile(selectedFile);
+    const error = validateFile(selectedFile, { maxBytes: MAX_FILE_SIZE, allowedTypes: ALLOWED_TYPES });
     if (error) {
       setStatus(`❌ ${error}`);
       setFile(null);
@@ -157,12 +148,6 @@ export function ImageProcessor() {
     setDragOver(false);
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) handleFileSelect(droppedFile);
-  };
-
-  const formatTime = (ms: number | null): string => {
-    if (!ms) return "-";
-    if (ms < 1000) return `${ms}ms`;
-    return `${(ms / 1000).toFixed(1)}s`;
   };
 
   return (
@@ -258,7 +243,7 @@ export function ImageProcessor() {
               <tr><td><strong>Status:</strong></td><td>{jobStatus.status}</td></tr>
               <tr><td><strong>Scale:</strong></td><td>{jobStatus.scaleFactor}x</td></tr>
               <tr><td><strong>Model:</strong></td><td>{jobStatus.modelName}</td></tr>
-              <tr><td><strong>Processing Time:</strong></td><td>{formatTime(jobStatus.processingTimeMs)}</td></tr>
+              <tr><td><strong>Processing Time:</strong></td><td>{formatDuration(jobStatus.processingTimeMs)}</td></tr>
             </tbody>
           </table>
           

@@ -1,5 +1,6 @@
 import React, { useState, useRef, DragEvent } from "react";
-import { uploadFileWithProgress, downloadFile } from "../api/fileservice";
+import { uploadFileWithProgress, downloadFile } from "../api";
+import { validateFile } from "../lib";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 const ALLOWED_TYPES = ["image/png", "image/jpeg", "application/pdf"];
@@ -14,19 +15,8 @@ export function FileUpload() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Validate file
-  const validateFile = (file: File): string | null => {
-    if (!ALLOWED_TYPES.includes(file.type)) {
-      return `Unsupported file type: ${file.type}`;
-    }
-    if (file.size > MAX_FILE_SIZE) {
-      return `File is too large: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
-    }
-    return null;
-  };
-
   const handleFileSelect = (file: File) => {
-    const error = validateFile(file);
+    const error = validateFile(file, { maxBytes: MAX_FILE_SIZE, allowedTypes: ALLOWED_TYPES });
     if (error) {
       setUploadStatus(`❌ ${error}`);
       setFile(null);
