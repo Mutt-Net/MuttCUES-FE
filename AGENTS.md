@@ -138,3 +138,45 @@ export function ComponentName() {
 2. **No linter**: Project relies solely on TypeScript for code quality.
 3. **Docker-first deployment**: Primary deployment is via Docker with Nginx.
 4. **Backend dependency**: Requires Spring Boot API at `http://localhost:8080` for full functionality.
+
+---
+
+## Git Workflow
+
+### Branch Structure
+
+```
+main (protected)
+  └── dev
+        └── feature/short-name
+        └── fix/short-name
+```
+
+Merge flow: `feature/*` or `fix/*` → `dev` → `main`
+
+### Commit Format
+
+```
+type(scope): subject
+
+Body (72-char wrap). Explain why, not what.
+Resolves TASK-NNN from IMPLEMENTATION_PLAN.md (if applicable).
+
+-MuttNET-
+```
+
+**Types:** `feat` `fix` `docs` `chore` `refactor` `test` `perf` `ci` `build`
+
+### Signature
+
+End every commit with `-MuttNET-` on its own line. This is the
+provenance marker for Holly-assisted commits.
+
+### Pre-commit Hooks
+
+Installed via `Z:/holly-state/scripts/install-hooks.sh`.
+Direct commits to `main` are blocked — use `dev` as integration branch.
+
+### Full Spec
+
+`Z:/holly-state/docs/commit-standards.md`
